@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title style="color:#0284c7; background-color: #38bdf8;">MI Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: rgba(255,255,255,0.06);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-dark: #0ea5e9;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    body.light {
+      --bg: #f8fafc;
+      --bg-soft: #ffffff;
+      --card: rgba(15,23,42,0.04);
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --border: rgba(15,23,42,0.08);
+      --shadow: 0 10px 30px rgba(15,23,42,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--bg), var(--bg-soft));
+      color: var(--text);
+      line-height: 1.6;
+      
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.75);
+      border-bottom: 1px solid var(--border);
+    }
+
+    body.light header {
+      background: rgba(255,255,255,0.85);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      transition: 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    .menu-btn,
+    .theme-btn {
+      border: none;
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .menu-btn:hover,
+    .theme-btn:hover,
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      align-items: center;
+      gap: 40px;
+      padding: 60px 0 40px;
+    }
+
+    .hero-text h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .hero-text h2 {
+      font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+      color: var(--muted);
+      margin-bottom: 18px;
+      min-height: 40px;
+    }
+
+    .hero-text p {
+      color: var(--muted);
+      max-width: 650px;
+      margin-bottom: 28px;
+      font-size: 1rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: 0.3s;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .profile-box {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .avatar-photo {
+      width: 220px;
+      height: 280px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 24px;
+      border: 3px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow);
+      margin-bottom: 10px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    body.light .stat {
+      background: rgba(15,23,42,0.03);
+    }
+
+    .stat h4 {
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .about-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 26px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin-bottom: 14px;
+      color: var(--primary);
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .skills-grid,
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .skill-item {
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+
+    .skill-item:hover,
+    .project-card:hover,
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .skill-item h4,
+    .project-card h3 {
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .skill-item p,
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 16px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--primary);
+      font-size: 0.85rem;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      padding: 18px;
+      border-left: 4px solid var(--primary);
+      background: var(--card);
+      border-radius: 0 16px 16px 0;
+      border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item h4 {
+      margin-bottom: 6px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-item {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+    }
+
+    body.light .contact-item {
+      background: rgba(15,23,42,0.03);
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      outline: none;
+    }
+
+    body.light input,
+    body.light textarea {
+      background: rgba(15,23,42,0.03);
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 0 40px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 20px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .about-grid,
+      .contact-grid,
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 76px;
+        right: 4%;
+        width: 240px;
+        flex-direction: column;
+        align-items: flex-start;
+        background: var(--bg-soft);
+        border: 1px solid var(--border);
+        padding: 18px;
+        border-radius: 16px;
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: inline-block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#home" class="logo">Portfolio</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#education" class="nav-link">Education</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div style="display:flex; gap:10px;">
+          <button class="theme-btn" id="themeToggle">Theme</button>
+          <button class="menu-btn" id="menuBtn">Menu</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" id="home">
+      <div class="hero-text reveal">
+        <h3>Hello, I am</h3>
+        <h1>MPAWENIMANA INNOCENT</h1>
+        <h2>I am a <span id="typing"></span></h2>
+        <p>
+          I am an IT student passionate about web development, networking, cybersecurity, databases, and software engineering. I build practical digital solutions and enjoy solving real-world technical problems.
+        </p>
+        <div class="btn-group">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal">
+        <div class="profile-box">
+          <img class="avatar-photo" src="innocent image.jpeg">
+            <h3 style="margin-bottom:6px; color: var(--text);">IT Student & Developer</h3>
+            <p style="color: var(--muted);">
+              Focused on creating academic and practical projects using HTML, CSS, JavaScript, databases, networking tools, and system design concepts.
+            </p>
+          </div>
+          <div class="stat-grid">
+            <div class="stat">
+              <h4>3+</h4>
+              <p>Projects</p>
+            </div>
+            <div class="stat">
+              <h4>5+</h4>
+              <p>IT Skills</p>
+            </div>
+            <div class="stat">
+              <h4>100%</h4>
+              <p>Motivation</p>
+            </div>
+            <div class="stat">
+              <h4>24/7</h4>
+              <p>Learning</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title reveal">About Me</h2>
+        <p class="section-subtitle reveal">
+          A short introduction about my background, interests, and career direction in the field of Information Technology.
+        </p>
+        <div class="about-grid">
+          <div class="card reveal">
+            <h3>Who I Am</h3>
+            <p>
+              I am MPAWENIMANA INNOCENT, an IT student at RP Tumba College. I am building my professional identity through practical work, digital design, and academic technology projects.
+            </p>
+          </div>
+          <div class="card reveal">
+            <h3>Career Goal</h3>
+            <p>
+              My goal is to become a skilled IT professional who can design secure, efficient, and user-friendly systems that solve real business and community problems.
+            </p>
+          </div>
+        </div>
+      
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title reveal">My Skills</h2>
+        <p class="section-subtitle reveal">
+          Core technical areas I am studying and using in my projects.
+        </p>
+        <div class="skills-grid">
+          <div class="skill-item reveal">
+            <h4>Web Development</h4>
+            <p>HTML, CSS, JavaScript, responsive layout, UI design, and front-end project structure.</p>
+          </div>
+          <div class="skill-item reveal">
+            <h4>Programming</h4>
+            <p>Problem solving, logic building, algorithms, and writing structured code.</p>
+          </div>
+          <div class="skill-item reveal">
+            <h4>MS Office</h4>
+            <p>Strong working knowledge of Microsoft Office Suite, especially MS Word, MS Excel, MS PowerPoint, and MS Outlook.</p>
+          </div>
+          <div class="skill-item reveal">
+            <h4>Photoshop</h4>
+            <p>SEditing images, preparing graphics, and improving visual presentation for academic or personal work.</p>
+          </div>
+          <div class="skill-item reveal">
+            <h4>Databases</h4>
+            <p>SQL, database design, normalization, CRUD operations, and data management.</p>
+          </div>
+          <div class="skill-item reveal">
+            <h4>Networking</h4>
+            <p>IP addressing, subnetting, routing basics, scanning tools, and network concepts.</p>
+          </div>
+          <div class="skill-item reveal">
+            <h4>Cybersecurity</h4>
+            <p>System scanning, basic penetration testing concepts, security awareness, and threat monitoring.</p>
+          </div>
+          <div class="skill-item reveal">
+            <h4>System Analysis</h4>
+            <p>Requirement analysis, problem identification, system design thinking, and documentation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title reveal">Projects</h2>
+        <p class="section-subtitle reveal">
+          Sample portfolio projects. Replace these with your real work, school projects, or internship tasks.
+        </p>
+        <div class="projects-grid">
+          <div class="project-card reveal">
+            <h3>Student Management System</h3>
+            <p>
+              A system concept for managing student records, attendance, and academic information using web technologies and a database.
+            </p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">SQL</span>
+            </div>
+            <a href="#" class="btn btn-outline">Project Link</a>
+          </div>
+
+          <div class="project-card reveal">
+            <h3>Network Monitoring Project</h3>
+            <p>
+              An academic IT project focused on monitoring devices, identifying hosts, and understanding traffic behavior in a local network.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Networking</span>
+              <span class="tag">Nmap</span>
+              <span class="tag">Security</span>
+            </div>
+            <a href="#" class="btn btn-outline">Project Link</a>
+          </div>
+
+          <div class="project-card reveal">
+            <h3>Personal Portfolio Website</h3>
+            <p>
+              A responsive website that presents my profile, skills, projects, and contact information in a professional way.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Portfolio</span>
+              <span class="tag">Responsive</span>
+              <span class="tag">UI Design</span>
+            </div>
+            <a href="#" class="btn btn-outline">Project Link</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container">
+        <h2 class="section-title reveal">Education & Experience</h2>
+        <p class="section-subtitle reveal">
+          Replace this section with your school, training, certifications, and practical experience.
+        </p>
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <h4>Information Technology Student</h4>
+            <p>Studying core IT modules such as programming, databases, networking, web development, system analysis, and cybersecurity.</p>
+          </div>
+          <div class="timeline-item reveal">
+            <h4>Academic Projects</h4>
+            <p>Worked on class projects involving software design, presentations, technical reports, and practical system implementation tasks.</p>
+          </div>
+          <div class="timeline-item reveal">
+            <h4>Continuous Learning</h4>
+            <p>Improving practical skills through self-learning, project building, research, and technical experimentation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title reveal">Contact Me</h2>
+        <p class="section-subtitle reveal">
+          Add your real contact information so recruiters, lecturers, or collaborators can reach you.
+        </p>
+        <div class="contact-grid">
+          <div class="card reveal">
+            <h3>Contact Information</h3>
+            <div class="contact-list">
+              <div class="contact-item"><strong>Email:</strong><a href="">mpawenimanainnos204@gmail.com</a></div>
+              <div class="contact-item"><strong>Phone:</strong> +250 791 535 997</div>
+              <div class="contact-item"><strong>Location:</strong> Kigali, Rwanda</div>
+              <div class="contact-item"><strong>GitHub:</strong><a href="">https://github.com/innocent2004</a></div>
+            </div>
+          </div>
+
+          <div class="card reveal">
+            <h3>Send a Message</h3>
+            <form id="contactForm">
+              <input type="text" id="name" placeholder="Your Name" required>
+              <input type="email" id="email" placeholder="Your Email" required>
+              <textarea id="message" placeholder="Your Message" required></textarea>
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+            <p id="formMessage" style="margin-top:12px; color: var(--primary);"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 MPAWENIMANA INNOCENT. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const themeToggle = document.getElementById('themeToggle');
+    const navItems = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+    const reveals = document.querySelectorAll('.reveal');
+    const form = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+    const typing = document.getElementById('typing');
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    navItems.forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('show'));
+    });
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light');
+    }
+
+    function activateNav() {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (scrollY >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navItems.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    function revealOnScroll() {
+      reveals.forEach(item => {
+        const windowHeight = window.innerHeight;
+        const revealTop = item.getBoundingClientRect().top;
+        if (revealTop < windowHeight - 80) {
+          item.classList.add('show');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      activateNav();
+      revealOnScroll();
+    });
+
+    revealOnScroll();
+    activateNav();
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formMessage.textContent = 'Message sent successfully. Replace this demo with real backend integration.';
+      form.reset();
+    });
+
+    const roles = ['Web Developer', 'IT Student', 'Tech Enthusiast', 'Problem Solver'];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function typeEffect() {
+      const currentRole = roles[roleIndex];
+
+      if (!deleting) {
+        typing.textContent = currentRole.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === currentRole.length) {
+          deleting = true;
+          setTimeout(typeEffect, 1200);
+          return;
+        }
+      } else {
+        typing.textContent = currentRole.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          deleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+        }
+      }
+
+      setTimeout(typeEffect, deleting ? 50 : 100);
+    }
+
+    typeEffect();
+  </script>
+</body>
+</html>
